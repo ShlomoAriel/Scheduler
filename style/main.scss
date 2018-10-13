@@ -1,0 +1,105 @@
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$fa-font-path: "fonts";
+@import '~react-big-calendar/lib/css/react-big-calendar.css';
+@import "fonts/font-awesome/scss/font-awesome";
+@import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';// Common
+@import '~react-select/dist/react-select.css';
+@import '~react-datepicker/dist/react-datepicker.css';
+@import "colors";
+@import "common";
+@import "fonts/fonts";
+@import "animations";
+// Main body styles
+html {
+}
+body {
+  margin: 0;
+  font-family: "Comfortaa-Light";
+  background-color: #FFFFFF;
+  direction: rtl;
+}
+body {
+  margin: 0;
+  font-family: "Open-Sans";
+  background-color: #FFFFFF;
+  direction: rtl;
+}
+
+// Components
+@import "../src/components/home/style/main";
+@import "../src/components/Login/style/main";
+@import "../src/components/Management/User/style/main";
+@import "../src/components/common/Loader/loader";
+@import "../src/components/Elements/main";
+.header{
+	background:#96DFFA;
+	padding:10px 20px;
+	color: #4F4C4D;
+	text-align: center;
+  font-size:30px;
+}
+.Select-control{
+	border: none;
+  background-color: transparent;
+}
+.personal-info{
+ .dashboard-picklist{
+    border: none;
+    border-bottom:1px solid #35ABAB;
+    border-radius:0px;
+  }
+  .has-value.Select--single > .Select-control .Select-value .Select-value-label, .has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label{
+        color: #35ABAB;
+        font-size:18px;
+  }
+}
+
+.fa-button{
+	width:40px!important;
+}
+.right-margin{
+	margin-right:20px;
+}
+.rbc-calendar{
+  width: 100%;
+  direction:ltr;
+  .rbc-month-row {
+    flex: 1;
+    height: 100px;
+  }
+  .rbc-month-view {
+      flex: 1;
+  }
+}.navbar{
+  background:#E1E1E1;
+  background:#FFFFFF;
+  margin-bottom:0px;
+  border:none;
+  font-size:15px;
+  font-weight:700;
+}
+.navbar-default .navbar-nav > li > a{
+  color:#58585a;
+}
+.navbar-default .navbar-nav > li:hover, .navbar-default .navbar-nav .active{
+  a{
+  color: #35ABAB;
+  }
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+  color: #35ABAB;
+  background-color: transparent;
+}
+.container-fluid{
+  padding:0px;
+  @media only screen and (max-width: 1199px)  {
+    padding: 0px 15px;
+  }
+  > div{
+    padding: 25px 0;
+    @media only screen and (max-width: 1199px)  {
+      padding:0px;
+      border-bottom: 1px solid #e7e7e7;
+    }
+  }
+}

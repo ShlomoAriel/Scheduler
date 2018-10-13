@@ -1,0 +1,31 @@
+.number-range {
+	height: 36px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	&__label {
+	    margin: 0px 10px 0px 0px;
+	    color: #A9BACA;
+	    font-weight: initial;
+	}
+
+	&__input {
+	    margin: 6px;
+	    width: 45%;
+
+	    input {
+			height: 36px;
+			width: 100%;
+			color: #6f8ea6;
+			border: 1px solid #DBE0EA;
+			border-radius: 5px;
+			flex-basis: 150px;
+			padding: 0 10px 0 20px;
+			& + & {
+				margin-left: 18px;
+			}
+		}
+	}
+}

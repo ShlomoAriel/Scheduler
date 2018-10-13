@@ -1,0 +1,41 @@
+.select {
+	height: 36px;
+	width: 100%;
+	color: #6f8ea6;
+	border: 1px solid #DBE0EA;
+	border-radius: 5px;
+	flex-basis: 150px;
+	padding: 0 15px;
+	& + & {
+		margin-left: 18px;
+	}
+}
+
+.label {
+
+}
+.input,
+	.Select-control,
+	.Select-menu-outer {
+		border-color: $stroke-color;
+		color: #6f8ea6;
+
+		@include placeholders {
+			color: #6f8ea6;
+			font-weight: 400;
+		}
+	}
+	.Select-placeholder,
+	.Select-noresults {
+		color: #6f8ea6;
+	}
+	.Select-arrow {
+		border-color: #6f8ea6 transparent transparent;
+	}
+	.input,
+	.Select-input,
+	.Select--single > .Select-control .Select-value,
+	.date-range-picker__picker {
+		color: black;
+		font-weight: 600;
+	}

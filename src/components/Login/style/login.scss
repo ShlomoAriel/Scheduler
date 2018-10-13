@@ -1,0 +1,84 @@
+.login, .trainee, .training-package, .trainee-dashboard{
+	margin-top:100px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: start;
+	align-items: center;
+	align-content: space-around;
+}
+.form{
+		color:#99DFF9;
+	    width: 330px;
+		h3{
+		    font-size: 20px;
+    		text-align: center;
+		}
+	    > div{
+	    	input{
+			    width: 100%;
+			    border: 0px;
+			    padding: 10px 12px;
+			    border-radius: 4px;
+			    outline: none;
+			    -webkit-box-sizing: border-box;
+			    -moz-box-sizing: border-box;
+			    box-sizing: border-box;
+			    vertical-align: middle;
+			    -webkit-font-smoothing: antialiased;
+			    color: #333333;
+			    background: transparent;
+			    box-shadow: inherit;
+			    height: inherit;
+			    margin-bottom: inherit;
+	    	}
+	    }
+	    > div{
+	    	border: 1px solid rgba(0, 0, 0, 0.3);
+	    	border-top: 1px solid transparent;
+	    	border-bottom-left-radius: 0px;
+		    border-bottom-right-radius: 0px;
+		    border-top-left-radius: 0px;
+		    border-top-right-radius: 0px;
+	    }
+	    > div:nth-child(2){
+	    	border-top: 1px solid rgba(0, 0, 0, 0.3);
+	    }
+	    > div:nth-last-child(2){
+	    	border-bottom: 1px solid transparent;
+	    }
+	    > div:first-child{
+	    	border: 1px solid rgba(0, 0, 0, 0.3);
+	    	border-bottom-left-radius: 0px;
+		    border-bottom-right-radius: 0px;
+		    border-top-left-radius: 4px;
+		    border-top-right-radius: 4px;
+		    border-bottom-width: 0px;
+	    }
+	    > div:last-child{
+	    	border: 1px solid rgba(0, 0, 0, 0.3);
+	    	border-bottom-left-radius: 4px;
+		    border-bottom-right-radius: 4px;
+		    border-top-left-radius: 0px;
+		    border-top-right-radius: 0px;
+
+	    }
+	    .button-holder{
+	    	position: relative;
+	    	input{
+	    		pointer-events:none;
+	    	}
+	    	button{
+		        position: absolute;
+			    right: 5px;
+			    top: 5px;
+			    border-width: 0px;
+			    font-size: 25px;
+			    font-weight: 100;
+			    background: transparent;
+	    	}
+	    }
+	}
+.login{
+	height: calc(100vh - 100px);
+}

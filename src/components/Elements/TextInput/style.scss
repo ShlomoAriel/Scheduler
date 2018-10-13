@@ -1,0 +1,24 @@
+.input{
+	height: 36px;
+	width: 100%;
+	color: #6f8ea6;
+	border: 1px solid #DBE0EA;
+	border-radius: 5px;
+	flex-basis: 150px;
+	padding: 0 30px;
+	& + & {
+		margin-left: 18px;
+	}
+}
+
+.input__search:before {
+	position: absolute;
+    top: 12px;
+    left: 10px;
+    right: 10px;
+    width: 14px;
+    height: 14px;
+	content:"";
+	background: url("./images/search.svg");
+	background-size: 100%;
+}
