@@ -24,10 +24,14 @@ export function setCurrentEvent(eventId){
         eventId: eventId
     }
 }
-
+// updateWorker(worker){
+//         let testObject = {entityName:'worker2', entityData:worker}
+//         return this.$http.put(url + '/api/updateEntity/' + worker._id,testObject);
+//     }
 export function getEventList(){
     return (dispatch, getState) => {
-        return http.get(config.currentUrl + '/api/getEvents')
+        let testObject = {entityName:'Event'}
+        return http.get(config.currentUrl + '/api/getEntities',testObject)
         .then ( 
             response => {
                 console.log('Success: ' + response)
@@ -41,13 +45,13 @@ export function getEventList(){
     }
 }
 
-export function getEventByTrainee(){
+export function getEventByUser(){
     return (dispatch, getState) => {
-        let traineeId = getState().trainee.currentTrainee._id
-        if(!traineeId){
+        let userId = getState().user.currentUser._id
+        if(!userId){
             return
         }
-        return http.get(config.currentUrl + '/api/getEventByTrainee/' + traineeId)
+        return http.get(config.currentUrl + '/api/getEventByUser/' + userId)
         .then ( 
             response => {
                 console.log('Success: ' + response)
@@ -56,7 +60,7 @@ export function getEventByTrainee(){
         )
         .catch( 
             error => 
-                console.log('getEventByTrainee in: ' + error)
+                console.log('getEventByUser in: ' + error)
         )
     }
 }
@@ -64,12 +68,16 @@ export function getEventByTrainee(){
 export function addEvent(){
     return (dispatch, getState) => {
         let form = R.clone(getState().event.form)
-        form.trainee = getState().trainee.currentTrainee._id
+        form.user = getState().user.currentUser._id
         form.date = Date()
-        return http.post(config.currentUrl + '/api/addEvent',form)
+        let entityObject = {
+            entity:form,
+            entityName:'Event'
+            }
+        return http.post(config.currentUrl + '/api/addEntity', entityObject)
         .then ( 
             response => {
-                let newEvent = [...(getState().trainee.currentTrainee.Event), response.data]
+                let newEvent = [...(getState().user.currentUser.Event), response.data]
                 dispatch({
                     type: types.SET_CURRENT_TRAINEE_LIST,
                     listName: 'Event',
@@ -91,7 +99,7 @@ export function updaeEvent(id, event){
         return http.put(config.currentUrl + '/api/deleteEvent/'+id, event)
         .then (
             response => {
-                dispatch(getEventByTrainee())
+                dispatch(getEventByUser())
                 console.log('Success: ' + response)
             }
         )
@@ -109,7 +117,7 @@ export function removeEvent(id){
         return http.remove(config.currentUrl + '/api/deleteEvent/'+id)
         .then ( 
             response => {
-                let newEvent = (getState().trainee.currentTrainee.Event).filter( item => item._id != id )
+                let newEvent = (getState().user.currentUser.Event).filter( item => item._id != id )
                 dispatch({
                     type: types.SET_CURRENT_TRAINEE_LIST,
                     listName: 'Event',

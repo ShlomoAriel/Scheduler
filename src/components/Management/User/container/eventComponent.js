@@ -8,14 +8,16 @@ class EventContainer extends React.Component {
     constructor(props, context) {
         super(props, context)
     }
-    componentWillMount(){}
+    componentWillMount(){
+        this.props.getEventList()
+    }
     componentDidUpdate(prevProps, prevState) {}
     getFields() {
         return { 
-            'emailInput': { fieldClass:'form-control',field: 'email', name:'email', placeholder: 'דואר אלקטרוני', value: this.props.form.email, onUpdate: this.props.onInputFieldChange },
-            'passwordInput': { type:'password', fieldClass:'form-control',field: 'password', name:'password', placeholder: 'סיסמה', value: this.props.form.password, onUpdate: this.props.onInputFieldChange },
-            'passwordConfirmInput': { type:'password', fieldClass:'form-control',field: 'passwordConfirm', name:'passwordConfirm', placeholder: 'וידוא סיסמה', value: this.props.form.passwordConfirm, onUpdate: this.props.onInputFieldChange },
-            'nameInput': {fieldClass:'form-control',field: 'name', name:'name', placeholder: 'שם', value: this.props.form.name, onUpdate: this.props.onInputFieldChange },
+            'dateInput': { type: 'dateTime', fieldClass:'inline',startField: 'start', endField:'end', dateField:'date', name:'start', 
+                                 placeholder: 'start', value: this.props.form.start, onUpdate: this.props.onInputFieldChange ,
+                                 fromValue:this.props.form.start, toValue: this.props.form.end, date: this.props.form.date},
+            'nameInput': {type: 'input', fieldClass:'form-control',field: 'name', name:'name', placeholder: 'שם', value: this.props.form.name, onUpdate: this.props.onInputFieldChange },
         }
     }
     render() {
@@ -32,6 +34,7 @@ function mapStateToProps(state) {
     	form: state.event.form,
         eventList: state.event.eventList,
         authenticated: state.event.authenticated,
+        isAdmin: state.login.isAdmin,
         currentEventId: state.event.currentEvent._id
     }
 }
@@ -48,8 +51,19 @@ function mapDispatchToProps(dispatch) {
         removeEvent(id){
             dispatch( eventActions.removeEvent(id) )
         },
+        onSelectEvent(event){
+            console.log('onSelectEvent');
+            // dispatch( eventActions.updateEvent(id) )
+        },
+        selectSlot(slot){
+            console.log('selectSlot');
+            // dispatch( eventActions.updateEvent(id) )
+        },
         saveEvent(id){
             dispatch( eventActions.updateEvent(id) )
+        },
+        getEventList(){
+            dispatch( eventActions.getEventList() )
         },
         setEeditEvent(id){
             dispatch( eventActions.setEeditEvent(id) )

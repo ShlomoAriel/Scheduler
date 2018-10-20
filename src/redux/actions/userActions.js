@@ -21,15 +21,15 @@ export function setUserList(userList){
 
 export function setCurrentUser(userId){
     return (dispatch, getState) => {
-        // let user = R.find(R.propEq('_id', userId))(getState().user.userList);
-        // if(user){
-        //     dispatch({
-        //         type: types.SET_CURRENT_USER,
-        //         user: user
-        //     })
-        // } else{
+        let user = R.find(R.propEq('_id', userId))(getState().user.userList);
+        if(user){
+            dispatch({
+                type: types.SET_CURRENT_USER,
+                user: user
+            })
+        } else{
                 dispatch(getUser(userId))
-        // }
+        }
     }
 }
 

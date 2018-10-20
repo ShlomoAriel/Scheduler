@@ -40,7 +40,7 @@ export function updateInputField(state, field, value){
 //         .then ( 
 //             response => {
 //                 console.log('Success: ' + response)
-//                 dispatch(setTraineeList(response.data))
+//                 dispatch(setUserList(response.data))
 //             }
 //         )
 //         .catch( 
@@ -51,11 +51,11 @@ export function updateInputField(state, field, value){
 // }
 // export function addObject(objectName){
 //     return (dispatch, getState) => {
-//         let form = getState().trainee.form
+//         let form = getState().user.form
 //         return http.post('https://get-fit-server.herokuapp.com/api/add' + objectName ,form)
 //         .then ( 
 //             response => {
-//                 dispatch(getTraineeList())
+//                 dispatch(getUserList())
 //                 console.log('Success: ' + response)
 //             }
 //         )
@@ -66,13 +66,13 @@ export function updateInputField(state, field, value){
 //     }
 // }
 
-// export function updaeObject(id, trainee, objectName){
+// export function updaeObject(id, user, objectName){
 //     return (dispatch, getState) => {
-//         let form = getState().trainee.form
-//         return http.put('https://get-fit-server.herokuapp.com/api/update' + objectName + '/' + id, trainee)
+//         let form = getState().user.form
+//         return http.put('https://get-fit-server.herokuapp.com/api/update' + objectName + '/' + id, user)
 //         .then (
 //             response => {
-//                 dispatch(getTraineeList())
+//                 dispatch(getUserList())
 //                 console.log('Success: ' + response)
 //             }
 //         )
@@ -85,7 +85,7 @@ export function updateInputField(state, field, value){
 
 // export function removeObject(id, objectName){
 //     return (dispatch, getState) => {
-//         let form = getState().trainee.form
+//         let form = getState().user.form
 //         const jwt = localStorage.getItem('token');
 //         return axios.delete('https://get-fit-server.herokuapp.com/api/delete' + objectName + '/' + id,{
 //             headers:{
@@ -96,7 +96,7 @@ export function updateInputField(state, field, value){
 //         })
 //         .then ( 
 //             response => {
-//                 dispatch(getTraineeList())
+//                 dispatch(getUserList())
 //                 console.log('Success: ' + response)
 //             }
 //         )

@@ -1,15 +1,15 @@
 import * as config from '../../utils/config'
-var traineeDataMap = [
+var userDataMap = [
                         {action:'SET_DIET_MAP_USER', modelList:'Diet'},
-                        {action:'SET_USER_GOAL_LIST', modelList:'TraineeGoal'},
+                        {action:'SET_USER_GOAL_LIST', modelList:'UserGoal'},
                         {action:'SET_USER_SESSION_LIST', modelList:'Session'},
                         {action:'SET_USER_SCHEDULEDEXERCISE_LIST', modelList:'ScheduledExercise'},
                         {action:'SET_PAYMENT_MAP', modelList:'Payment'},
                         {action:'SET_USER_HOMESESSION_LIST', modelList:'HomeSession'},
                         {action:'SET_USER_SESSIONNAME_LIST', modelList:'SessionName'},
                         // {action:'SET_USER_SESSION_LIST', modelList:'TrainingSession'},
-                        {action:'SET_USER_TRAININGPACKAGE_LIST', modelList:'TraineeTrainingPackage'},
-                        {action:'SET_USER_STATUS_LISTֹ_MAP', modelList:'TraineeStatus'},
+                        {action:'SET_USER_TRAININGPACKAGE_LIST', modelList:'UserTrainingPackage'},
+                        {action:'SET_USER_STATUS_LISTֹ_MAP', modelList:'UserStatus'},
                         ]
 import * as types from './actionTypes'
 import axios from 'axios';
@@ -38,25 +38,21 @@ export function login(field, value){
         .then ( 
             response => {
                 dispatch( storeUserCredentials(response.data) )
-                if(response.data.trainee){
-                    response.data.trainee = {...response.data.trainee, ...response.data.models}
+                if(response.data.user){
+                    response.data.user = {...response.data.user, ...response.data.models}
                     dispatch({
                         type: types.SET_CURRENT_USER,
-                        trainee: response.data.trainee
+                        user: response.data.user
                     })
                 }
-                traineeDataMap.forEach( item =>{
+                userDataMap.forEach( item =>{
                     if(response.data[item.modelList]){
                         dispatch({
                             type: types[item.action],
                             list:response.data[item.modelList],
-                            traineeId: response.data.trainee._id
+                            userId: response.data.user._id
                         })
                     }
-                })
-                dispatch({
-                    type: types.TOGGLE_LOADER_FIELD,
-                    field: 'main'
                 })
                 dispatch( setToken(response.data.token) )
             }
@@ -64,7 +60,12 @@ export function login(field, value){
         .catch( 
             error => 
                 console.log('error loging in: ' + error)
-        )
+        ).finally( res=>{
+            dispatch({
+                type: types.TOGGLE_LOADER_FIELD,
+                field: 'main'
+            })
+        })
     }
 }
 function storeUserCredentials(data) {
@@ -72,8 +73,8 @@ function storeUserCredentials(data) {
 	    window.localStorage.setItem('token', data.token);
 	    window.localStorage.setItem('currentUser', data.user._id);
         window.localStorage.setItem('currentUserRole', data.user.role._id);
-        if(data.trainee){
-	       window.localStorage.setItem('currentTrainee', data.trainee._id); 
+        if(data.user){
+	       window.localStorage.setItem('currentUser', data.user._id); 
         }
 	}
 }
@@ -83,7 +84,7 @@ export function logout(){
         dispatch( removeUserCredentials() )
         dispatch({
                     type: types.SET_CURRENT_USER,
-                    trainee: {}
+                    user: {}
                 })
     }
 }
@@ -92,6 +93,6 @@ function removeUserCredentials() {
         window.localStorage.removeItem('token');
         window.localStorage.removeItem('currentUser');
         window.localStorage.removeItem('currentUserRole');
-        window.localStorage.removeItem('currentTrainee');
+        window.localStorage.removeItem('currentUser');
     }
 }

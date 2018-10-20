@@ -11,6 +11,7 @@ const initialState = {
         tabs:[
             {route:'',name:'בית'},
             {route:'user',name:'משתמשים'},
+            {route:'event',name:'ארוע'},
         ],
     },
 }
