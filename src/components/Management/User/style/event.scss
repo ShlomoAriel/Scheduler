@@ -1,0 +1,33 @@
+.event{
+	// display: flex;
+	// flex-direction: row;
+	// flex-wrap: nowrap;
+	// justify-content: space-around;
+	// align-items: baseline;
+	// align-content: flex-start;
+	// .active{background: #35ABAB;}
+	.event-list{
+		.custom-row{
+			display: flex;
+			flex-direction: row;
+			padding:5px;
+			border: 1px solid #e1e1e1;
+			> div {
+				width: 35px;
+			}
+			div:nth-child(1){
+				width: 100px;
+			}
+			div:nth-child(2){
+				width: 100px;
+			}
+			div:nth-child(3){
+				width: 100px;
+			}
+		}
+		> div:nth-child(3){
+		    margin-right: 50px;
+		}
+	}
+	
+}

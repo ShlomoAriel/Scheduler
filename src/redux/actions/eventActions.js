@@ -3,6 +3,7 @@ import * as types from './actionTypes'
 import * as http from '../../utils/axiosWrapper'
 import axios from 'axios'
 import R from 'ramda'
+import moment from 'moment'
 export function updateInputField(field, value){
     return {
         type: types.UPDATE_EVENT_FIELD,
@@ -69,21 +70,27 @@ export function addEvent(){
     return (dispatch, getState) => {
         let form = R.clone(getState().event.form)
         form.user = getState().user.currentUser._id
-        form.date = Date()
+        let newStart = moment(form.date);
+        newStart.hour(form.start.hour());
+        newStart.minutes(form.start.minute());
+        form.start = newStart
+        let newEnd = moment(form.date);
+        newEnd.hour(form.end.hour());
+        newEnd.minutes(form.end.minute());
+        form.end = newEnd
         let entityObject = {
             entity:form,
             entityName:'Event'
             }
-        return http.post(config.currentUrl + '/api/addEntity', entityObject)
+        return http.put(config.currentUrl + '/api/updateEntity', entityObject)
         .then ( 
             response => {
-                let newEvent = [...(getState().user.currentUser.Event), response.data]
-                dispatch({
-                    type: types.SET_CURRENT_TRAINEE_LIST,
-                    listName: 'Event',
-                    list: newEvent
-                })
-                console.log('Success: ' + newEvent)
+                let upsertedEvent = response.data
+                let currentEventList = R.clone(getState().event.eventList)
+                const index = R.findIndex(R.propEq('_id', upsertedEvent._id))(currentEventList);
+                currentEventList[index] = upsertedEvent
+                dispatch(setEventList(currentEventList))
+                console.log('Success: ' + response)
             }
         )
         .catch( 
@@ -110,11 +117,25 @@ export function updaeEvent(id, event){
     }
 }
 
+export function setEeditEvent(event){
+    return (dispatch, getState) => {
+        dispatch({
+            type: types.SET_EDIT_EVENT,
+            event: event
+        })
+    }
+    return 
+}
+
 export function removeEvent(id){
     return (dispatch, getState) => {
         let form = getState().event.form
         const jwt = localStorage.getItem('token');
-        return http.remove(config.currentUrl + '/api/deleteEvent/'+id)
+        let entityObject = {
+            entity:form,
+            entityName:'Event'
+            }
+        return http.remove(config.currentUrl + '/api/deleteEntity/'+ id + '/Event')
         .then ( 
             response => {
                 let newEvent = (getState().user.currentUser.Event).filter( item => item._id != id )

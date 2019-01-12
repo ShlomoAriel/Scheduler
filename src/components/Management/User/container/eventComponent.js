@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import R from 'ramda';
 import * as eventActions from 'redux/actions/eventActions'
 import Event from '../display/Event';
+import * as systemActions from 'redux/actions/systemActions'
+import moment from 'moment';
 
 class EventContainer extends React.Component {
     constructor(props, context) {
@@ -17,7 +19,7 @@ class EventContainer extends React.Component {
             'dateInput': { type: 'dateTime', fieldClass:'inline',startField: 'start', endField:'end', dateField:'date', name:'start', 
                                  placeholder: 'start', value: this.props.form.start, onUpdate: this.props.onInputFieldChange ,
                                  fromValue:this.props.form.start, toValue: this.props.form.end, date: this.props.form.date},
-            'nameInput': {type: 'input', fieldClass:'form-control',field: 'name', name:'name', placeholder: 'שם', value: this.props.form.name, onUpdate: this.props.onInputFieldChange },
+            'titleInput': {type: 'input', fieldClass:'form-control',field: 'title', name:'title', placeholder: 'שם', value: this.props.form.title, onUpdate: this.props.onInputFieldChange },
         }
     }
     render() {
@@ -30,6 +32,13 @@ class EventContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
+    let eventList = state.event.eventList.map( event => {
+        let newEvent = R.clone(event)
+        // newEvent.start = moment(event.start)
+        // newEvent.end = moment(event.end)
+        // newEvent.date = moment(event.date)
+        return newEvent
+    })
     return {
     	form: state.event.form,
         eventList: state.event.eventList,
@@ -47,17 +56,19 @@ function mapDispatchToProps(dispatch) {
         addEvent(e){
             e.preventDefault();
             dispatch( eventActions.addEvent() )
+            dispatch(systemActions.toggleModal())
         },
         removeEvent(id){
             dispatch( eventActions.removeEvent(id) )
         },
         onSelectEvent(event){
-            console.log('onSelectEvent');
-            // dispatch( eventActions.updateEvent(id) )
+            let eventId = event ? event._id : undefined
+            dispatch(eventActions.setEeditEvent(event) )
+            dispatch( eventActions.updateInputField('date', moment(event.start)) )
+            dispatch(systemActions.toggleModal())
         },
         selectSlot(slot){
             console.log('selectSlot');
-            // dispatch( eventActions.updateEvent(id) )
         },
         saveEvent(id){
             dispatch( eventActions.updateEvent(id) )
@@ -67,9 +78,13 @@ function mapDispatchToProps(dispatch) {
         },
         setEeditEvent(id){
             dispatch( eventActions.setEeditEvent(id) )
+            toggleModal()
+        },
+        toggleModal(){
+            dispatch(systemActions.toggleModal())
         },
         updateEvent(id){
-            dispatch( eventActions.updateEvent(id) )
+            dispatch( eventActions.addEvent(id) )
         }
     }
 }

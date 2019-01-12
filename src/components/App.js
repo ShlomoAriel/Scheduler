@@ -67,8 +67,10 @@ function mapDispatchToProps(dispatch) {
         setToken(token){
             dispatch(loginActions.setToken(token))
             dispatch(userActions.getUserList())
+        },
+        toggleModal(){
+            dispatch(systemActions.toggleModal())
         }
-        
     }
 }
 
